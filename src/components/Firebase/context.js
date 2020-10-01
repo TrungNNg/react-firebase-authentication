@@ -5,4 +5,11 @@ import React from 'react'
 // need the class intance via firebasecontext.consumer
 const FirebaseContext = React.createContext(null);
 
+//this is a HOC that take in a component and pass firebase instace to it via .Consumer
+export const withFirebase = Component => props => (
+    <FirebaseContext.Consumer>
+        {firebase => <Component {...props} firebase={firebase}/>}
+    </FirebaseContext.Consumer>
+)
+
 export default FirebaseContext;
