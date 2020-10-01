@@ -37,13 +37,10 @@ const SignUpFormBase = (props) => {
         username === "";
 
     const onSubmit = event => {
-        console.log(email);
-        console.log(props.firebase);
-        console.log(props.history);
         props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
-            setState({...INITIAL_STATE});
-            props.history.push(ROUTES.HOME);
+            setState({...INITIAL_STATE}); // reset form.
+            props.history.push(ROUTES.HOME); // redirect to home page.
         })
         .catch(error => {
             setState({...state, error:error});
@@ -99,7 +96,7 @@ const SignUpForm = compose(withRouter, withFirebase,)(SignUpFormBase);
 
 const SignUpLink = () => {
     return (
-        <p>Don't have an account? <Link to={ROUTES.SIGN_UP} />Sign Up</p>
+        <p>Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link></p>
     )
 }
 
