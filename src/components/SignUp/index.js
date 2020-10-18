@@ -39,6 +39,15 @@ const SignUpFormBase = (props) => {
     const onSubmit = event => {
         props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
+            // Create a user in your Firebase realtime database
+            return props.firebase
+              .user(authUser.user.uid)
+              .set({
+                username,
+                email,
+              });
+        })
+        .then(() => {
             setState({...INITIAL_STATE}); // reset form.
             props.history.push(ROUTES.HOME); // redirect to home page.
         })
